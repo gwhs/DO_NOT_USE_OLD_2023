@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-//
+// to fix imports, do ctrl+shift+p, search manage, install new libraries
 import com.ctre.phoenix.sensors.BasePigeon;
 import com.swervedrivespecialties.swervelib.Mk4iSwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
