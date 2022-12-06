@@ -45,8 +45,8 @@ public class DriveTrainSub extends SubsystemBase {
    * This is a measure of how fast the robot should be able to drive in a straight line.
    */
   public static final double MAX_VELOCITY_METERS_PER_SECOND = 6380.0 / 60.0 *
-          SdsModuleConfigurations.MK3_STANDARD.getDriveReduction() * // some kind of gear ratio
-          SdsModuleConfigurations.MK3_STANDARD.getWheelDiameter() * Math.PI; // diameter in meters.
+          SdsModuleConfigurations.MK4I_L3.getDriveReduction() * // some kind of gear ratio
+          SdsModuleConfigurations.MK4I_L3.getWheelDiameter() * Math.PI; // diameter in meters.
   /**
    * The maximum angular velocity of the robot in radians per second.
    * <p>
@@ -83,29 +83,30 @@ public class DriveTrainSub extends SubsystemBase {
 
   private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
+  //from other file 
+//   private SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics, m_navx.getRotation2d());
+
+//   private TrapezoidProfile.Constraints kThetaControllerConstraints =
+//         new TrapezoidProfile.Constraints(Math.PI, Math.PI);
+//   private ProfiledPIDController thetaController = new ProfiledPIDController(1, 0, 0, kThetaControllerConstraints);
+//   private SwerveModuleState[] m_states;
+
+
+
+
   public DriveTrainSub() {
     ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
 
-    // There are 4 methods you can call to create your swerve modules.
-    // The method you use depends on what motors you are using.
-    //
-    // Mk3SwerveModuleHelper.createFalcon500(...)
-    //   Your module has two Falcon 500s on it. One for steering and one for driving.
-    //cz
-    // Mk3SwerveModuleHelper.createNeo(...)
-    //   Your module has two NEOs on it. One for steering and one for driving.
-    //
-    // Mk3SwerveModuleHelper.createFalcon500Neo(...)
-    //   Your module has a Falcon 500 and a NEO on it. The Falcon 500 is for driving and the NEO is for steering.
-    //
-    // Mk3SwerveModuleHelper.createNeoFalcon500(...)
-    //   Your module has a NEO and a Falcon 500 on it. The NEO is for driving and the Falcon 500 is for steering.
-    //
-    // Similar helpers also exist for Mk4 modules using the Mk4SwerveModuleHelper class.
+//from other file
+//     m_angleInRad = new Rotation2d(0);
+//     aIR = 0.0;
+//     driveMode = true;
+//     thetaController.enableContinuousInput(-Math.PI, Math.PI);
+//     drive(new ChassisSpeeds(0,0,0));
 
-    // By default we will use Falcon 500s in standard configuration. But if you use a different configuration or motors
-    // you MUST change it. If you do not, your code will crash on startup.
-    // FIXME Setup motor configuration
+
+
+
         m_frontLeftModule = Mk4iSwerveModuleHelper.createFalcon500(
             // This parameter is optional, but will allow you to see the current state of the module on the dashboard.
             tab.getLayout("Front Left Module", BuiltInLayouts.kList)
@@ -158,15 +159,32 @@ public class DriveTrainSub extends SubsystemBase {
     );
   }
 
+  //from other file for odometry
+//   public Pose2d getPose() {
+//         return m_odometry.getPoseMeters();
+//       }
+    
+//       public void resetOdometry(Pose2d pose) {
+//         m_odometry.resetPosition(pose, m_navx.getRotation2d());
+//       }
+      
+    
+//       public SwerveDriveKinematics getKinematics() {
+        
+//         return m_kinematics;
+//       }
+    
+//       public ProfiledPIDController getThetaController() {
+//         return thetaController;
+//       }
+
+
+
   /**
    * Sets the gyroscope angle to zero. This can be used to set the direction the robot is currently facing to the
    * 'forwards' direction.
    */
   public void zeroGyroscope() {
-    // FIXME Remove if you are using a Pigeon
-    // m_pigeon.setFusedHeading(0.0);
-
-    // FIXME Uncomment if you are using a NavX
     m_navx.zeroYaw();
   }
 
@@ -184,7 +202,7 @@ public class DriveTrainSub extends SubsystemBase {
 //
 //    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
 //    return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
-  }
+  
 
   public void drive(ChassisSpeeds chassisSpeeds) {
     m_chassisSpeeds = chassisSpeeds;
