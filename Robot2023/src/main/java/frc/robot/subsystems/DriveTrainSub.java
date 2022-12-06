@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-
+//
 import com.ctre.phoenix.sensors.BasePigeon;
 import com.swervedrivespecialties.swervelib.Mk4iSwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
@@ -197,4 +197,13 @@ public class DriveTrainSub extends SubsystemBase {
 
 
 
-  
+  /*
+  I had this issue. What I did is I uninstalled all libraries.
+The ones I found I needed to not get this issues are
+22 wpilib
+ctre- https://maven.ctr-electronics.com/release/com/ctre/phoenix/Phoenix-frc2022-latest.json
+navx_frc https://www.kauailabs.com/dist/frc/2021/navx_frc.json
+Rev -https://software-metadata.revrobotics.com/REVLib.json
+sds -https://raw.githubusercontent.com/SwerveDriveSpecialties/swerve-lib/master/SdsSwerveLib.json
+For the last 4, I needed to do an online install.
+*/
