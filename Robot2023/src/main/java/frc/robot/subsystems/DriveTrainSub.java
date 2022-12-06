@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 // to fix imports, do ctrl+shift+p, search manage, install new libraries
 import com.ctre.phoenix.sensors.BasePigeon;
+import com.swervedrivespecialties.swervelib.DriveController;
 import com.swervedrivespecialties.swervelib.Mk4iSwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 import com.swervedrivespecialties.swervelib.SwerveModule;
@@ -17,8 +18,11 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.DrivetrainConstants;
 
 import static frc.robot.Constants.*;
+
+import javax.naming.directory.DirContext;
 
 public class DriveTrainSub extends SubsystemBase {
   /**
@@ -48,17 +52,17 @@ public class DriveTrainSub extends SubsystemBase {
    */
   // Here we calculate the theoretical maximum angular velocity. You can also replace this with a measured amount.
   public static final double MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND = MAX_VELOCITY_METERS_PER_SECOND /
-          Math.hypot(.570/ 2.0, .570 / 2.0);
+          Math.hypot(DrivetrainConstants.DRIVETRAIN_TRACKWIDTH_METERS/ 2.0, DrivetrainConstants.DRIVETRAIN_WHEELBASE_METERS / 2.0);
 
   private final SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
           // Front left
-          new Translation2d(0.57 / 2.0, 0.57 / 2.0),
+          new Translation2d(DrivetrainConstants.DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DrivetrainConstants.DRIVETRAIN_WHEELBASE_METERS/ 2.0),
           // Front right
-          new Translation2d(0.57 / 2.0, -0.57 / 2.0),
+          new Translation2d(DrivetrainConstants.DRIVETRAIN_TRACKWIDTH_METERS / 2.0, -DrivetrainConstants.DRIVETRAIN_WHEELBASE_METERS / 2.0),
           // Back left
-          new Translation2d(-0.57 / 2.0, 0.57 / 2.0),
+          new Translation2d(-DrivetrainConstants.DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DrivetrainConstants.DRIVETRAIN_WHEELBASE_METERS / 2.0),
           // Back right
-          new Translation2d(-0.57 / 2.0, -0.57 / 2.0)
+          new Translation2d(-DrivetrainConstants.DRIVETRAIN_TRACKWIDTH_METERS / 2.0, -DrivetrainConstants.DRIVETRAIN_WHEELBASE_METERS / 2.0)
   );
 
   // By default we use a Pigeon for our gyroscope. But if you use another gyroscope, like a NavX, you can change this.
@@ -85,7 +89,7 @@ public class DriveTrainSub extends SubsystemBase {
     //
     // Mk3SwerveModuleHelper.createFalcon500(...)
     //   Your module has two Falcon 500s on it. One for steering and one for driving.
-    //
+    //cz
     // Mk3SwerveModuleHelper.createNeo(...)
     //   Your module has two NEOs on it. One for steering and one for driving.
     //
@@ -100,7 +104,7 @@ public class DriveTrainSub extends SubsystemBase {
     // By default we will use Falcon 500s in standard configuration. But if you use a different configuration or motors
     // you MUST change it. If you do not, your code will crash on startup.
     // FIXME Setup motor configuration
-    Mk4iSwerveModuleHelper m_frontLeftModule = Mk4iSwerveModuleHelper.createFalcon500(
+        m_frontLeftModule = Mk4iSwerveModuleHelper.createFalcon500(
             // This parameter is optional, but will allow you to see the current state of the module on the dashboard.
             tab.getLayout("Front Left Module", BuiltInLayouts.kList)
                     .withSize(2, 4)
@@ -108,47 +112,47 @@ public class DriveTrainSub extends SubsystemBase {
             // This can either be STANDARD or FAST depending on your gear configuration
             Mk4iSwerveModuleHelper.GearRatio.L3,
             // This is the ID of the drive motor
-            FRONT_LEFT_MODULE_DRIVE_MOTOR,
+            DrivetrainConstants.FRONT_LEFT_MODULE_DRIVE_MOTOR,
             // This is the ID of the steer motor
-            FRONT_LEFT_MODULE_STEER_MOTOR,
+            DrivetrainConstants.FRONT_LEFT_MODULE_STEER_MOTOR,
             // This is the ID of the steer encoder
-            FRONT_LEFT_MODULE_STEER_ENCODER,
+            DrivetrainConstants.FRONT_LEFT_MODULE_STEER_ENCODER,
             // This is how much the steer encoder is offset from true zero (In our case, zero is facing straight forward)
-            FRONT_LEFT_MODULE_STEER_OFFSET
+            DrivetrainConstants.FRONT_LEFT_MODULE_STEER_OFFSET
     );
 
     // We will do the same for the other modules
-    m_frontRightModule = Mk3SwerveModuleHelper.createFalcon500(
+    m_frontRightModule = Mk4iSwerveModuleHelper.createFalcon500(
             tab.getLayout("Front Right Module", BuiltInLayouts.kList)
                     .withSize(2, 4)
                     .withPosition(2, 0),
-            Mk3SwerveModuleHelper.GearRatio.STANDARD,
-            FRONT_RIGHT_MODULE_DRIVE_MOTOR,
-            FRONT_RIGHT_MODULE_STEER_MOTOR,
-            FRONT_RIGHT_MODULE_STEER_ENCODER,
-            FRONT_RIGHT_MODULE_STEER_OFFSET
+            Mk4iSwerveModuleHelper.GearRatio.L3,
+            DrivetrainConstants.FRONT_RIGHT_MODULE_DRIVE_MOTOR,
+            DrivetrainConstants.FRONT_RIGHT_MODULE_STEER_MOTOR,
+            DrivetrainConstants.FRONT_RIGHT_MODULE_STEER_ENCODER,
+            DrivetrainConstants.FRONT_RIGHT_MODULE_STEER_OFFSET
     );
 
-    m_backLeftModule = Mk3SwerveModuleHelper.createFalcon500(
+    m_backLeftModule = Mk4iSwerveModuleHelper.createFalcon500(
             tab.getLayout("Back Left Module", BuiltInLayouts.kList)
                     .withSize(2, 4)
                     .withPosition(4, 0),
-            Mk3SwerveModuleHelper.GearRatio.STANDARD,
-            BACK_LEFT_MODULE_DRIVE_MOTOR,
-            BACK_LEFT_MODULE_STEER_MOTOR,
-            BACK_LEFT_MODULE_STEER_ENCODER,
-            BACK_LEFT_MODULE_STEER_OFFSET
+            Mk4iSwerveModuleHelper.GearRatio.L3,
+            DrivetrainConstants.BACK_LEFT_MODULE_DRIVE_MOTOR,
+            DrivetrainConstants.BACK_LEFT_MODULE_STEER_MOTOR,
+            DrivetrainConstants.BACK_LEFT_MODULE_STEER_ENCODER,
+            DrivetrainConstants.BACK_LEFT_MODULE_STEER_OFFSET
     );
 
-    m_backRightModule = Mk3SwerveModuleHelper.createFalcon500(
+    m_backRightModule = Mk4iSwerveModuleHelper.createFalcon500(
             tab.getLayout("Back Right Module", BuiltInLayouts.kList)
                     .withSize(2, 4)
                     .withPosition(6, 0),
-            Mk3SwerveModuleHelper.GearRatio.STANDARD,
-            BACK_RIGHT_MODULE_DRIVE_MOTOR,
-            BACK_RIGHT_MODULE_STEER_MOTOR,
-            BACK_RIGHT_MODULE_STEER_ENCODER,
-            BACK_RIGHT_MODULE_STEER_OFFSET
+            Mk4iSwerveModuleHelper.GearRatio.L3,
+            DrivetrainConstants.BACK_RIGHT_MODULE_DRIVE_MOTOR,
+            DrivetrainConstants.BACK_RIGHT_MODULE_STEER_MOTOR,
+            DrivetrainConstants.BACK_RIGHT_MODULE_STEER_ENCODER,
+            DrivetrainConstants.BACK_RIGHT_MODULE_STEER_OFFSET
     );
   }
 
@@ -166,7 +170,7 @@ public class DriveTrainSub extends SubsystemBase {
 
   public Rotation2d getGyroscopeRotation() {
     // FIXME Remove if you are using a Pigeon
-    return Ro   tation2d.fromDegrees(m_pigeon.getFusedHeading());
+    return Rotation2d.fromDegrees(m_pigeon.getFusedHeading());
 
     // FIXME Uncomment if you are using a NavX
 //    if (m_navx.isMagnetometerCalibrated()) {
@@ -197,8 +201,8 @@ public class DriveTrainSub extends SubsystemBase {
 
 
 
-  /*
-  I had this issue. What I did is I uninstalled all libraries.
+/*
+I had this issue. What I did is I uninstalled all libraries.
 The ones I found I needed to not get this issues are
 22 wpilib
 ctre- https://maven.ctr-electronics.com/release/com/ctre/phoenix/Phoenix-frc2022-latest.json
