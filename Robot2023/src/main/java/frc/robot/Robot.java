@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.TestContainers.CatapultContainer;
 import frc.robot.TestContainers.IntakeContainer;
-import frc.robot.commands.ShuffleboardUpdater;
 import frc.robot.subsystems.ShuffleboardTest;
 
 /**
@@ -24,7 +23,6 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private BaseContainer m_BaseContainer;
-  ShuffleboardUpdater m_ShuffleboardUpdater = new ShuffleboardUpdater();
   ShuffleboardTest tab = new ShuffleboardTest();
   
   
@@ -101,7 +99,6 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    m_ShuffleboardUpdater = new ShuffleboardUpdater();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
