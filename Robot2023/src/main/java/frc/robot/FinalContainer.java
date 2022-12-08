@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.CatapultSubsystem;
-import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.IntakeMotor;
 import frc.robot.subsystems.LimelightPortal;
@@ -21,11 +20,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.DefaultDriveCommandRobotOriented;
 import frc.robot.commands.AutoAlignCommands.AlignToFender;
-import frc.robot.commands.CatapultCommands.CatapultIntake;
-import frc.robot.commands.CatapultCommands.ChangePower;
-import frc.robot.commands.CatapultCommands.OneCatapultIntake;
-import frc.robot.commands.ClimberCommands.ParallelClimber;
-import frc.robot.commands.ClimberCommands.ParallelClimberRetract;
 import frc.robot.commands.IntakeCommands.IntakeDeploySpin;
 import frc.robot.commands.IntakeCommands.IntakeStowStop;
 import frc.robot.utils.Utilities;
@@ -37,10 +31,6 @@ public class FinalContainer implements BaseContainer{
 
   //drivetrain
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
-
-  //climber
-  private final ClimberSubsystem m_climberRightSubsystem = new ClimberSubsystem(43, true); 
-  private final ClimberSubsystem m_climberLeftSubsystem = new ClimberSubsystem(45, false);
 
   //catapult
   private final CatapultSubsystem m_catapultSubsystemLeft = new CatapultSubsystem(Constants.CATAPULT_LEFT_ID, false, Constants.CATAPULT_LEFT_SHOOT_LIMIT);
@@ -117,11 +107,9 @@ public class FinalContainer implements BaseContainer{
     
     buttonBack.whenPressed(m_drivetrainSubsystem::zeroGyroscope);
     buttonStart.whenPressed(() -> m_drivetrainSubsystem.forcingZero());
-    buttonB.whenPressed(new CatapultIntake(m_intakeMotor, m_catapultSubsystemLeft, m_catapultSubsystemRight, Constants.CATAPULT_LEFT_SPEED, Constants.CATAPULT_RIGHT_SPEED, Constants.INTAKE_DEPLOY_SPEED, Constants.CATAPULT_DELAY));
     buttonX.whenPressed(new AlignToFender(m_drivetrainSubsystem, ll, tof, m_catapultSubsystemRight, m_catapultSubsystemLeft, m_intakeMotor));
     buttonY.whenPressed(new IntakeDeploySpin(m_upperLowerIntake, m_intakeMotor, Constants.DEPLOY_SPEED, Constants.INTAKE_LOWER_SPEED, Constants.INTAKE_UPPER_SPEED));
     buttonA.whenPressed(new IntakeStowStop(m_upperLowerIntake, m_intakeMotor, Constants.DEPLOY_SPEED).withTimeout(2));
-    buttonRBumper.whenPressed(new CatapultIntake(m_intakeMotor, m_catapultSubsystemLeft, m_catapultSubsystemRight, Constants.CATAPULT_SPEED_LOW, Constants.CATAPULT_SPEED_LOW, Constants.INTAKE_DEPLOY_SPEED, Constants.CATAPULT_DELAY));
     
 
     // limelight and tof testing
@@ -129,16 +117,6 @@ public class FinalContainer implements BaseContainer{
     // // buttonB.whenPressed(new GoToDistanceTimeOfFlight(6, m_drivetrainSubsystem, tof));
     // buttonA.whenPressed(new PrintLLandTOFDistance());
     // buttonX.whenPressed(new TurnToZeroLimelight(0, m_drivetrainSubsystem, ll).withTimeout(0.75));
-    
-
-
-    buttonX2.whenPressed(new OneCatapultIntake(m_intakeMotor, m_upperLowerIntake, Constants.INTAKE_DEPLOY_SPEED, m_catapultSubsystemLeft, Constants.CATAPULT_SPEED_DUMP)); // dump left
-    buttonB2.whenPressed(new OneCatapultIntake(m_intakeMotor, m_upperLowerIntake, Constants.INTAKE_DEPLOY_SPEED, m_catapultSubsystemRight, Constants.CATAPULT_SPEED_DUMP)); // dump right
-    buttonA2.whenPressed(new ParallelClimberRetract(m_climberLeftSubsystem, m_climberRightSubsystem, Constants.CLIMBER_RETRACT_INCHES_1, Constants.CLIMBER_RETRACT_INCHES_2, Constants.CLIMBER_MAX_SPEED, Constants.CLIMBER_SLOW_SPEED)); //retract
-    buttonY2.whenPressed(new ParallelClimber(m_climberLeftSubsystem, m_climberRightSubsystem, Constants.CLIMER_EXTEND_INCHES, Constants.CLIMBER_MAX_SPEED)); //extend
-    buttonRBumper2.whenPressed(new ChangePower(.01, m_catapultSubsystemLeft, m_catapultSubsystemRight));
-    buttonLBumper2.whenPressed(new ChangePower(-.01, m_catapultSubsystemLeft, m_catapultSubsystemRight));
-
     //buttonY2.whenPressed(new AutoCommand(m_drivetrainSubsystem, m_catapultSubsystemLeft, m_catapultSubsystemRight, m_intakeMotor, m_upperLowerIntake));
     
 
