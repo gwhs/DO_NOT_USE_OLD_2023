@@ -6,10 +6,6 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.IntakeCommands.IntakeDeploy;
-import frc.robot.commands.IntakeCommands.IntakeDeploySpin;
-import frc.robot.commands.IntakeCommands.IntakeStow;
-import frc.robot.commands.IntakeCommands.SpinIntake;
 import frc.robot.subsystems.CatapultSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.IntakeMotor;
@@ -54,13 +50,10 @@ public class AutoCommand extends SequentialCommandGroup {
             
             addCommands(
                         new InstantCommand(() -> m_drivetrainSubsystem.forcingZero()),
-                        new IntakeDeploySpin(m_upperLowerIntake, m_intakeMotor, Constants.INTAKE_DEPLOY_SPEED, Constants.INTAKE_LOWER_SPEED, Constants.INTAKE_UPPER_SPEED).withTimeout(2),
-                        new IntakeDeploy(m_intakeMotor, Constants.INTAKE_DEPLOY_SPEED).withTimeout(0.5),
                         new WaitCommand(delay),
                         new InstantCommand(() -> m_drivetrainSubsystem.resetOdometry(initPose)),
                         new ParallelCommandGroup(
-                             new SpinIntake(m_upperLowerIntake, Constants.INTAKE_UPPER_SPEED, Constants.INTAKE_LOWER_SPEED).withTimeout(path.getTotalTimeSeconds()),
-                             new PPSwerveControllerCommand(
+                            new PPSwerveControllerCommand(
                                 path,
                                 m_drivetrainSubsystem::getPose,
                                 m_drivetrainSubsystem.getKinematics(),
@@ -70,8 +63,6 @@ public class AutoCommand extends SequentialCommandGroup {
                                 m_drivetrainSubsystem::setStates,
                                 m_drivetrainSubsystem)), 
                         new InstantCommand(() -> m_drivetrainSubsystem.drive(new ChassisSpeeds(0, 0, 0))),
-                        new IntakeStow(m_intakeMotor, Constants.INTAKE_DEPLOY_SPEED).withTimeout(1),
-                        new IntakeDeploy(m_intakeMotor, Constants.INTAKE_DEPLOY_SPEED).withTimeout(1),
                         new WaitCommand(1)
                         // new InstantCommand(() -> m_drivetrainSubsystem.resetOdometry(endPose)),
                         // new PPSwerveControllerCommand(

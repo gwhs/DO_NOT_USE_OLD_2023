@@ -17,12 +17,6 @@ import frc.robot.subsystems.UpperLowerIntake;
 import frc.robot.BaseContainer;
 import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.IntakeCommands.IntakeDeploy;
-import frc.robot.commands.IntakeCommands.IntakeDeploySpin;
-import frc.robot.commands.IntakeCommands.IntakeStow;
-import frc.robot.commands.IntakeCommands.IntakeStowStop;
-import frc.robot.commands.IntakeCommands.SpinIntake;
-import frc.robot.commands.IntakeCommands.ToggleIntake;
 
 public class IntakeContainer implements BaseContainer{
   private final IntakeMotor m_IntakeMotor = new IntakeMotor(Constants.INTAKE_DEPLOY_ID); //FIX INPUTS
@@ -59,8 +53,7 @@ public class IntakeContainer implements BaseContainer{
 
     // RB.whenPressed(new IntakeDeploySpin(m_UpperLowerIntake, m_IntakeMotor, 0.5, 0.85, -1));
     // Y.whenPressed(new IntakeStowStop(m_UpperLowerIntake, m_IntakeMotor, 0.5));
-    X.whenPressed(new IntakeStow(m_IntakeMotor, 1));
-    B.whenPressed(new IntakeDeploy(m_IntakeMotor, 1));
+    
     Y.whenPressed(() -> System.out.println("Foward Limit: " + m_IntakeMotor.isFWDLIMIT())); 
     A.whenPressed(() -> System.out.println("Reverse Limit: " +  m_IntakeMotor.isREVLIMIT()));
     RB.whenPressed(() -> System.out.println("Position: " + m_IntakeMotor.isOtherData()));

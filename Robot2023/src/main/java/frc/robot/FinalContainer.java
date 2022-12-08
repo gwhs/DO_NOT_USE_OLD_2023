@@ -19,9 +19,6 @@ import frc.robot.subsystems.UpperLowerIntake;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.DefaultDriveCommandRobotOriented;
-import frc.robot.commands.AutoAlignCommands.AlignToFender;
-import frc.robot.commands.IntakeCommands.IntakeDeploySpin;
-import frc.robot.commands.IntakeCommands.IntakeStowStop;
 import frc.robot.utils.Utilities;
 import frc.robot.commands.AutoCommand;
 
@@ -107,11 +104,7 @@ public class FinalContainer implements BaseContainer{
     
     buttonBack.whenPressed(m_drivetrainSubsystem::zeroGyroscope);
     buttonStart.whenPressed(() -> m_drivetrainSubsystem.forcingZero());
-    buttonX.whenPressed(new AlignToFender(m_drivetrainSubsystem, ll, tof, m_catapultSubsystemRight, m_catapultSubsystemLeft, m_intakeMotor));
-    buttonY.whenPressed(new IntakeDeploySpin(m_upperLowerIntake, m_intakeMotor, Constants.DEPLOY_SPEED, Constants.INTAKE_LOWER_SPEED, Constants.INTAKE_UPPER_SPEED));
-    buttonA.whenPressed(new IntakeStowStop(m_upperLowerIntake, m_intakeMotor, Constants.DEPLOY_SPEED).withTimeout(2));
     
-
     // limelight and tof testing
     // buttonB.whenPressed(new TurnToZeroLimelight(0, m_drivetrainSubsystem, ll));
     // // buttonB.whenPressed(new GoToDistanceTimeOfFlight(6, m_drivetrainSubsystem, tof));
