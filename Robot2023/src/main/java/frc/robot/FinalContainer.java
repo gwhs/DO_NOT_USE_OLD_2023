@@ -6,19 +6,14 @@ package frc.robot;
 import com.ctre.phoenix.led.ColorFlowAnimation.Direction;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DefaultDriveCommand;
-import frc.robot.commands.DefaultDriveCommandRobotOriented;
 import frc.robot.utils.Utilities;
 
 public class FinalContainer implements BaseContainer{
   private final XboxController m_controller1 = new XboxController(0);
-  private final XboxController m_controller2 = new XboxController(1);
 
   //drivetrain
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
@@ -61,26 +56,9 @@ public class FinalContainer implements BaseContainer{
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton buttonX = new JoystickButton(m_controller1, XboxController.Button.kX.value);
-    JoystickButton buttonB = new JoystickButton(m_controller1, XboxController.Button.kB.value);
-    JoystickButton buttonA = new JoystickButton(m_controller1, XboxController.Button.kA.value);
-    JoystickButton buttonY = new JoystickButton(m_controller1, XboxController.Button.kY.value);
-    JoystickButton buttonLBumper = new JoystickButton(m_controller1, XboxController.Button.kLeftBumper.value);
-    JoystickButton buttonRBumper = new JoystickButton(m_controller1, XboxController.Button.kRightBumper.value);
     JoystickButton buttonBack = new JoystickButton(m_controller1, XboxController.Button.kBack.value);
-    JoystickButton buttonLeftJoystickButton = new JoystickButton(m_controller1, XboxController.Button.kLeftStick.value);
-    JoystickButton buttonRightJoystickButton = new JoystickButton(m_controller1, XboxController.Button.kRightStick.value);
     JoystickButton buttonStart = new JoystickButton(m_controller1, XboxController.Button.kStart.value);
 
-    JoystickButton buttonX2 = new JoystickButton(m_controller2, XboxController.Button.kX.value);
-    JoystickButton buttonB2 = new JoystickButton(m_controller2, XboxController.Button.kB.value);
-    JoystickButton buttonA2 = new JoystickButton(m_controller2, XboxController.Button.kA.value);
-    JoystickButton buttonY2 = new JoystickButton(m_controller2, XboxController.Button.kY.value);
-    JoystickButton buttonLBumper2 = new JoystickButton(m_controller2, XboxController.Button.kLeftBumper.value);
-    JoystickButton buttonRBumper2 = new JoystickButton(m_controller2, XboxController.Button.kRightBumper.value);
-    JoystickButton buttonBack2 = new JoystickButton(m_controller2, XboxController.Button.kBack.value);
-    JoystickButton buttonLeftJoystickButton2 = new JoystickButton(m_controller2, XboxController.Button.kLeftStick.value);
-    JoystickButton buttonRightJoystickButton2 = new JoystickButton(m_controller2, XboxController.Button.kRightStick.value);
     // JoystickButton button = new JoystickButton(m_controller1, XboxController.k.value);
     
     buttonBack.whenPressed(m_drivetrainSubsystem::zeroGyroscope);

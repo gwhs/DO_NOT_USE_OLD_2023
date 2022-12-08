@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.AddressableLED;
-import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -39,9 +37,6 @@ public class Robot extends TimedRobot {
 
   /*To set the robot container, use the dropdown menu in shuffleboard, under the smartdashboard tab*/
 
-  private AddressableLEDBuffer m_ledBuffer;
-  private AddressableLED m_led;
-
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -67,11 +62,8 @@ public class Robot extends TimedRobot {
     // }
     // m_led.setData(m_ledBuffer);
 
-    switch (container){
-      case FINAL:
-        m_BaseContainer = new FinalContainer();
-        break;
-    } 
+
+    m_BaseContainer = new FinalContainer();
     m_autonomousCommand = m_BaseContainer.getAutonomousCommand();
   }
 

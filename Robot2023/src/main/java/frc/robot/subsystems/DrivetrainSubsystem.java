@@ -7,8 +7,6 @@ package frc.robot.subsystems;
 //import com.ctre.phoenix.sensors.PigeonIMU;
 import frc.robot.DrivetrainConstants;
 
-import com.ctre.phoenix.sensors.CANCoder;
-
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
@@ -90,7 +88,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private double aIR; // keep track of angle in rad
   private boolean driveMode; // if not drive mode then calibration mode
 
-  private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
   private SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics, m_navx.getRotation2d());
 
@@ -104,10 +101,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private int BL = 2;
   private int BR = 3;
 
-  private CANCoder m_frontLeftCanCoder;
-  private CANCoder m_frontRightCanCoder;
-  private CANCoder m_backLeftCanCoder;
-  private CANCoder m_backRightCanCoder;
 
   private ShuffleboardTab speedTab = Shuffleboard.getTab("Motor Speed");
 
