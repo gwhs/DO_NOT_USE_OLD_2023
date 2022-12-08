@@ -12,15 +12,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.subsystems.IntakeMotor;
-import frc.robot.subsystems.UpperLowerIntake;
 import frc.robot.BaseContainer;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class IntakeContainer implements BaseContainer{
-  private final IntakeMotor m_IntakeMotor = new IntakeMotor(Constants.INTAKE_DEPLOY_ID); //FIX INPUTS
-  private final UpperLowerIntake m_UpperLowerIntake = new UpperLowerIntake(Constants.INTAKE_UPPERTALON_ID, Constants.INTAKE_LOWERTALON_ID);
   private final XboxController m_controller = new XboxController(0);
   
 
@@ -53,13 +49,7 @@ public class IntakeContainer implements BaseContainer{
 
     // RB.whenPressed(new IntakeDeploySpin(m_UpperLowerIntake, m_IntakeMotor, 0.5, 0.85, -1));
     // Y.whenPressed(new IntakeStowStop(m_UpperLowerIntake, m_IntakeMotor, 0.5));
-    
-    Y.whenPressed(() -> System.out.println("Foward Limit: " + m_IntakeMotor.isFWDLIMIT())); 
-    A.whenPressed(() -> System.out.println("Reverse Limit: " +  m_IntakeMotor.isREVLIMIT()));
-    RB.whenPressed(() -> System.out.println("Position: " + m_IntakeMotor.isOtherData()));
 
-
-    
     
   
   }

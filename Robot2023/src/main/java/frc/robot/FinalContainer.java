@@ -11,10 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.IntakeMotor;
 import frc.robot.subsystems.LimelightPortal;
-import frc.robot.subsystems.TimeOfFlightRange;
-import frc.robot.subsystems.UpperLowerIntake;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.DefaultDriveCommandRobotOriented;
@@ -27,13 +24,8 @@ public class FinalContainer implements BaseContainer{
   //drivetrain
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
 
-  //intake
-  private final IntakeMotor m_intakeMotor = new IntakeMotor(Constants.INTAKE_DEPLOY_ID);
-  private final UpperLowerIntake m_upperLowerIntake = new UpperLowerIntake(Constants.INTAKE_UPPERTALON_ID, Constants.INTAKE_LOWERTALON_ID);
-  
 
   private final LimelightPortal ll = new LimelightPortal();
-  private final TimeOfFlightRange tof = new TimeOfFlightRange();
 
   public static Direction direction;
   public FinalContainer() {
