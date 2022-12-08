@@ -9,9 +9,6 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.TestContainers.CatapultContainer;
-import frc.robot.TestContainers.IntakeContainer;
-import frc.robot.subsystems.ShuffleboardTest;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,7 +20,6 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private BaseContainer m_BaseContainer;
-  ShuffleboardTest tab = new ShuffleboardTest();
   
   
 
@@ -72,12 +68,6 @@ public class Robot extends TimedRobot {
     // m_led.setData(m_ledBuffer);
 
     switch (container){
-      case CATAPULT:
-        m_BaseContainer = new CatapultContainer();
-        break;
-      case INTAKE:
-        m_BaseContainer = new IntakeContainer();
-        break;
       case FINAL:
         m_BaseContainer = new FinalContainer();
         break;
