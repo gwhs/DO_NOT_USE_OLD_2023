@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.CatapultSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.IntakeMotor;
 import frc.robot.subsystems.LimelightPortal;
@@ -20,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.DefaultDriveCommandRobotOriented;
 import frc.robot.utils.Utilities;
-import frc.robot.commands.AutoCommand;
 
 public class FinalContainer implements BaseContainer{
   private final XboxController m_controller1 = new XboxController(0);
@@ -29,10 +27,6 @@ public class FinalContainer implements BaseContainer{
   //drivetrain
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
 
-  //catapult
-  private final CatapultSubsystem m_catapultSubsystemLeft = new CatapultSubsystem(Constants.CATAPULT_LEFT_ID, false, Constants.CATAPULT_LEFT_SHOOT_LIMIT);
-  private final CatapultSubsystem m_catapultSubsystemRight = new CatapultSubsystem(Constants.CATAPULT_RIGHT_ID, true, Constants.CATAPULT_RIGHT_SHOOT_LIMIT);
-  
   //intake
   private final IntakeMotor m_intakeMotor = new IntakeMotor(Constants.INTAKE_DEPLOY_ID);
   private final UpperLowerIntake m_upperLowerIntake = new UpperLowerIntake(Constants.INTAKE_UPPERTALON_ID, Constants.INTAKE_LOWERTALON_ID);
@@ -126,23 +120,10 @@ public class FinalContainer implements BaseContainer{
     * @return the command to run in autonomous
 */
 
-  private int autoPath = 1;
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
+// public Command getAutonomousCommand() {
+  //   // An ExampleCommand will run in autonomous
     
-    switch(autoPath) {
-      case 0:
-        return AutoCommand.OneCargo(m_drivetrainSubsystem, m_catapultSubsystemLeft, m_catapultSubsystemRight, m_intakeMotor, m_upperLowerIntake, Constants.AUTO_DELAY);
-      case 1: 
-        return AutoCommand.TwoCargoLeft(m_drivetrainSubsystem, m_catapultSubsystemLeft, m_catapultSubsystemRight, m_intakeMotor, m_upperLowerIntake, Constants.AUTO_DELAY);
-      case 2:
-        return AutoCommand.TwoCargoRight(m_drivetrainSubsystem, m_catapultSubsystemLeft, m_catapultSubsystemRight, m_intakeMotor, m_upperLowerIntake, Constants.AUTO_DELAY);
-      case 3:
-        return AutoCommand.ThreeCargoRight(m_drivetrainSubsystem, m_catapultSubsystemLeft, m_catapultSubsystemRight, m_intakeMotor, m_upperLowerIntake, Constants.AUTO_DELAY);
-      default:
-        return new InstantCommand();
-    }
     
-  }
+  // }
 }
 
